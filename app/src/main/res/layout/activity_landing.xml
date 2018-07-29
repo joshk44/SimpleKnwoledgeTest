@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".Landing">
 
+
+    <fragment
+        android:id="@+id/placeholder_main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/navigation"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
