@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Jose Ferreyra on 7/30/18 2:53 AM
+  ~ Copyright (c) 2018 . All rights reserved.
+  ~ Last modified 7/30/18 2:51 AM
+  ~
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/article_item_padding">
+
+    <TextView
+        android:id="@+id/title_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        style="@style/titleItem"/>
+
+    <TextView
+        android:id="@+id/description_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        style="@style/descriptionItem"/>
+</LinearLayout>

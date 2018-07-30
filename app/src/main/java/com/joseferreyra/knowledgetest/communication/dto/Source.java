@@ -1,4 +1,11 @@
 
+/*
+ * Created by Jose Ferreyra on 7/30/18 2:53 AM
+ * Copyright (c) 2018 . All rights reserved.
+ * Last modified 7/30/18 2:51 AM
+ *
+ */
+
 package com.joseferreyra.knowledgetest.communication.dto;
 
 import com.google.gson.annotations.Expose;

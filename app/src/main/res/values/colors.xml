@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Jose Ferreyra on 7/30/18 2:53 AM
+  ~ Copyright (c) 2018 . All rights reserved.
+  ~ Last modified 7/30/18 2:51 AM
+  ~
+  -->
+
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
