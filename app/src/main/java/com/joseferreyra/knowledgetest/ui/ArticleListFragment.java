@@ -8,6 +8,7 @@
 package com.joseferreyra.knowledgetest.ui;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -28,6 +29,7 @@ public class ArticleListFragment extends Fragment implements ListInteraction{
 
     private RecyclerView recyclerView;
     private ArticlesAdapter adapter;
+    private List<Article> articles;
 
 
 
@@ -59,10 +61,14 @@ public class ArticleListFragment extends Fragment implements ListInteraction{
     @Override
     public void listUpdate(List<Article> articles) {
         adapter.updateData(articles);
+        this.articles = articles;
     }
 
     @Override
     public void openItem(int position) {
         Log.d("Test", "position" + position);
+        Intent intent = new Intent(getActivity(), ViewArticle.class);
+        intent.putExtra("url", articles.get(position).getUrl());
+        getActivity().startActivity(intent);
     }
 }
