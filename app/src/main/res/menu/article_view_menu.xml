@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Jose Ferreyra on 7/31/18 3:05 AM
+  ~ Copyright (c) 2018 . All rights reserved.
+  ~ Last modified 7/31/18 3:05 AM
+  ~
+  -->
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<item
+    android:id="@+id/action_save"
+    android:icon="@drawable/ic_save"
+    android:orderInCategory="100"
+    app:showAsAction="always"
+    android:title="Save!" />
+</menu>
