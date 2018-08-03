@@ -22,7 +22,9 @@ import android.view.ViewGroup;
 import com.joseferreyra.knowledgetest.R;
 import com.joseferreyra.knowledgetest.communication.NetworkController;
 import com.joseferreyra.knowledgetest.communication.dto.Article;
+import com.joseferreyra.knowledgetest.db.ArticleDao;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ArticleListFragment extends Fragment implements ListInteraction{
@@ -30,8 +32,17 @@ public class ArticleListFragment extends Fragment implements ListInteraction{
     private RecyclerView recyclerView;
     private ArticlesAdapter adapter;
     private List<Article> articles;
+    private Source source = Source.BACKEND;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+           source = Source.valueOf(bundle.getString("SourceData", Source.BACKEND.source()));
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +65,17 @@ public class ArticleListFragment extends Fragment implements ListInteraction{
         adapter = new ArticlesAdapter(getActivity(), this);
         recyclerView.setAdapter(adapter);
 
-        NetworkController.requestArticles(this);
+        switch (source){
+            case BACKEND:
+                NetworkController.requestArticles(this);
+                break;
+            case DATABASE:
+                ArticleDao articleDao = ((MainApplication)getActivity().getApplication()).getDaoSession().getArticleDao();
+                articleDao.getAll(this);
+                break;
+
+        }
+
 
     }
 
@@ -68,7 +89,25 @@ public class ArticleListFragment extends Fragment implements ListInteraction{
     public void openItem(int position) {
         Log.d("Test", "position" + position);
         Intent intent = new Intent(getActivity(), ViewArticle.class);
-        intent.putExtra("url", articles.get(position).getUrl());
+        intent.putExtra("url", articles.get(position-1).getUrl());
+        intent.putExtra("article", articles.get(position-1));
         getActivity().startActivity(intent);
     }
+
+    public enum Source {
+        DATABASE ("DATABASE"), BACKEND ("BACKEND");
+
+        private String source;
+
+        Source(String source) {
+            this.source = source;
+        }
+
+        public String source() {
+            return source;
+        }
+    }
+
 }
+
+

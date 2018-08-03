@@ -36,11 +36,22 @@ public class Landing extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    {
                     Fragment articles = new ArticleListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("SourceData", ArticleListFragment.Source.BACKEND.source());
+                    articles.setArguments(bundle);
                     replaceFragment(articles);
                     return true;
-                case R.id.navigation_dashboard:
+                    }
+                case R.id.navigation_dashboard: {
+                    Fragment articles = new ArticleListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("SourceData", ArticleListFragment.Source.DATABASE.source());
+                    articles.setArguments(bundle);
+                    replaceFragment(articles);
                     return true;
+                    }
             }
             return false;
         }

@@ -8,10 +8,14 @@
 
 package com.joseferreyra.knowledgetest.communication.dto;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Article {
+
+public class Article implements Parcelable{
 
     @SerializedName("source")
     @Expose
@@ -34,6 +38,16 @@ public class Article {
     @SerializedName("publishedAt")
     @Expose
     private String publishedAt;
+
+    public Article(Source source, String author, String title, String description, String url, String urlToImage, String publishedAt) {
+        this.source = source;
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
+        this.publishedAt = publishedAt;
+    }
 
     public Source getSource() {
         return source;
@@ -91,4 +105,44 @@ public class Article {
         this.publishedAt = publishedAt;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+
+    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+    public static final Parcelable.Creator<Article> CREATOR = new Parcelable.Creator<Article>() {
+        public Article createFromParcel(Parcel in) {
+            return new Article(in);
+        }
+
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
+
+    private Article(Parcel in) {
+        this.author = in.readString();
+        this.title = in.readString();
+        this.description =  in.readString();
+        this.url = in.readString();
+        this.urlToImage =  in.readString();
+        this.publishedAt = in.readString();
+        this.source = new Source(in.readString(),in.readString());
+    }
+
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.author);
+        dest.writeString(this.title);
+        dest.writeString(this.description);
+        dest.writeString(this.url);
+        dest.writeString(this.urlToImage);
+        dest.writeString(this.publishedAt);
+        dest.writeString(this.source.getId());
+        dest.writeString(this.source.getName());
+    }
 }

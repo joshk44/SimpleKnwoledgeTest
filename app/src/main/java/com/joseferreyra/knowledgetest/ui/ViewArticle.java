@@ -17,10 +17,13 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.joseferreyra.knowledgetest.R;
+import com.joseferreyra.knowledgetest.communication.dto.Article;
+import com.joseferreyra.knowledgetest.db.DaoSession;
 
 public class ViewArticle extends AppCompatActivity {
 
     WebView mainWebView;
+    Article articleReceived;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class ViewArticle extends AppCompatActivity {
 
         Intent intent = getIntent();
         String value = intent.getStringExtra("url");
+        articleReceived = (Article) intent.getExtras().getParcelable("article");
 
         mainWebView = findViewById(R.id.article_web_view);
         mainWebView.getSettings().setJavaScriptEnabled(true);
@@ -46,7 +50,18 @@ public class ViewArticle extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                Toast.makeText(this, "Menu Item 1 selected", Toast.LENGTH_SHORT).show();
+                DaoSession articleDAO = ((MainApplication)getApplication()).getDaoSession();
+                com.joseferreyra.knowledgetest.db.Article article = new com.joseferreyra.knowledgetest.db.Article();
+                article.setAuthor(articleReceived.getAuthor());
+                article.setTitle(articleReceived.getTitle());
+                article.setDescription(articleReceived.getDescription());
+                article.setUrl(articleReceived.getUrl());
+                article.setUrlToImage(articleReceived.getUrlToImage());
+                article.setPublishedAt(articleReceived.getPublishedAt());
+                article.setSourceId(articleReceived.getSource().getId());
+                article.setSourceId(articleReceived.getSource().getName());
+                articleDAO.insert(article);
+                finish();
                 break;
         }
         return true;
